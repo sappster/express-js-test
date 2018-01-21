@@ -15,6 +15,8 @@ jobs:
       # - image: circleci/mongo:3.4.4
 
     working_directory: ~/repo
+    environment:
+      - GCLOUD_PROJECT: "express-js-test"
 
     steps:
       - checkout
@@ -35,3 +37,11 @@ jobs:
 
       # run tests!
       - run: yarn test
+
+      # deploy to gcloud
+      - run:
+          name: Dump Google Cloud Credentials to file
+          command: echo $GCLOUD_SERVICE_KEY | base64 --decode --ignore-garbage > ${HOME}/gcloud-service-key.json
+      - run: gcloud auth activate-service-account --key-file ${HOME}/gcloud-service-key.json
+      - run: gcloud -q config set project ${GOOGLE_PROJECT_ID}
+      - run: gcloud -q app deploy
