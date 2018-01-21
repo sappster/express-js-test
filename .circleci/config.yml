@@ -7,7 +7,7 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: circleci/node:9.4.0
+      - image: circleci/node:latest
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -17,6 +17,7 @@ jobs:
     working_directory: ~/repo
     environment:
       - GCLOUD_PROJECT: "express-js-test"
+      - CLOUDSDK_CORE_DISABLE_PROMPTS: "1"
 
     steps:
       - checkout
@@ -39,6 +40,7 @@ jobs:
       - run: yarn test
 
       # deploy to gcloud
+      - run: curl https://sdk.cloud.google.com | bash
       - run:
           name: Dump Google Cloud Credentials to file
           command: echo $GCLOUD_SERVICE_KEY | base64 --decode --ignore-garbage > ${HOME}/gcloud-service-key.json
