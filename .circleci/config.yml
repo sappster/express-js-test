@@ -44,6 +44,6 @@ jobs:
       - run:
           name: Dump Google Cloud Credentials to file
           command: echo $GCLOUD_SERVICE_KEY | base64 --decode --ignore-garbage > ${HOME}/gcloud-service-key.json
-      - run: google-cloud-sdk/gcloud auth activate-service-account --key-file ${HOME}/gcloud-service-key.json
-      - run: google-cloud-sdk/gcloud -q config set project ${GOOGLE_PROJECT_ID}
-      - run: google-cloud-sdk/gcloud -q app deploy
+      - run: ${HOME}/google-cloud-sdk/gcloud auth activate-service-account --key-file ${HOME}/gcloud-service-key.json
+      - run: ${HOME}/google-cloud-sdk/gcloud -q config set project ${GOOGLE_PROJECT_ID}
+      - run: ${HOME}/google-cloud-sdk/gcloud -q app deploy
