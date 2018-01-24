@@ -18,6 +18,7 @@ jobs:
     environment:
       - GCLOUD_PROJECT: "express-js-test"
       - CLOUDSDK_CORE_DISABLE_PROMPTS: "1"
+      - BASH_ENV: ".circleci/bash_env.sh"
 
     steps:
       - checkout
